@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Robert Betancourt — CV X-MEN '97</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+:root {
+  --steel-light:  #c8d0da;
+  --steel-mid:    #8a9bb0;
+  --steel-dark:   #3a4556;
+  --steel-deep:   #1c2433;
+  --steel-edge:   #d8e0ea;
+  --graphite:     #0a0c10;
+  --graphite-mid: #111620;
+  --graphite-card:#0e1520;
+
+  --xm-yellow:    #f5c400;
+  --xm-yellow-dim:#b8920a;
+  --xm-yellow-glow: rgba(245,196,0,0.22);
+  --xm-red:       #cc1f0e;
+  --xm-red-lit:   #e83318;
+  --xm-red-glow:  rgba(204,31,14,0.30);
+
+  --amber:        var(--xm-yellow-dim);
+  --amber-lit:    var(--xm-yellow);
+  --amber-glow:   var(--xm-yellow-glow);
+  --red-badge:    #7a1208;
+  --red-edge:     var(--xm-red-lit);
+
+  --border-steel: rgba(200,208,218,0.22);
+  --border-glow:  rgba(245,196,0,0.45);
+  --font-hud:     "Orbitron", sans-serif;
+  --font-mono:    "Share Tech Mono", monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--graphite);color:var(--steel-light);font-family:var(--font-mono)}
+
+/* APP */
+.app{position:relative;width:100vw;height:calc(100vh - 110px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+
+/* FONDO */
+.background-layer{position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 75% 55% at 50% 45%, #1a1220 0%, #0a0c10 100%)}
+.grid-lines{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(245,196,0,0.04) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(245,196,0,0.04) 1px,transparent 1px);
+  background-size:44px 44px;animation:gridPulse 7s ease-in-out infinite}
+@keyframes gridPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.x-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-hud);font-size:min(80vw,70vh);font-weight:900;
+  color:rgba(204,31,14,0.06);user-select:none;letter-spacing:-.05em;
+  animation:xPulse 5s ease-in-out infinite}
+@keyframes xPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.015)}}
+
+.hud-layer{position:absolute;inset:12px;z-index:1;pointer-events:none}
+.hud-title{position:absolute;top:0;left:50%;transform:translateX(-50%);
+  font-family:var(--font-hud);font-size:.68rem;letter-spacing:.28em;
+  color:var(--xm-yellow);background:var(--graphite);
+  padding:4px 22px;border:1px solid var(--xm-yellow-dim);
+  border-radius:0 0 5px 5px;white-space:nowrap;
+  text-shadow:0 0 10px var(--xm-yellow-glow)}
+.corner{position:absolute;width:26px;height:26px;border-color:var(--xm-yellow-dim);border-style:solid;opacity:.8}
+.corner-tl{top:0;left:0;border-width:2px 0 0 2px}
+.corner-tr{top:0;right:0;border-width:2px 2px 0 0}
+.corner-bl{bottom:0;left:0;border-width:0 0 2px 2px}
+.corner-br{bottom:0;right:0;border-width:0 2px 2px 0}
+.hud-badge{position:absolute;width:30px;height:30px;border-radius:50%;
+  border:1px solid var(--xm-red);
+  background:radial-gradient(circle,#1a0a08 55%,#0a0c10 100%)}
+.hud-badge-tl{top:38px;left:10px}.hud-badge-tr{top:38px;right:10px}
+.hud-badge-bl{bottom:10px;left:10px}.hud-badge-br{bottom:10px;right:10px}
+.hud-badge::after{content:"X";position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;font-family:var(--font-hud);font-weight:900;font-size:.8rem;
+  color:var(--xm-red-lit);text-shadow:0 0 6px var(--xm-red-glow)}
+
+/* PAGE COUNTER */
+.hud-counter{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  font-family:var(--font-hud);font-size:.52rem;letter-spacing:.2em;
+  color:var(--xm-yellow-dim);background:var(--graphite);
+  padding:3px 14px;border:1px solid rgba(245,196,0,0.2);
+  border-radius:5px 5px 0 0;white-space:nowrap}
+
+/* SCAN LINE */
+.scan-line{position:absolute;top:0;left:0;right:0;height:2px;z-index:10;opacity:.4;
+  background:linear-gradient(90deg,transparent,var(--xm-red-lit),var(--xm-yellow),var(--xm-red-lit),transparent);
+  animation:scan 6s linear infinite}
+@keyframes scan{0%{top:0%}100%{top:100%}}
+
+/* SCREENS */
+.content-layer{position:relative;z-index:2;width:min(480px,92vw)}
+.screen{display:none}.screen.active{display:block}
+
+/* DOORS */
+.door-overlay{position:absolute;inset:0;z-index:50;pointer-events:none;display:flex}
+.door{position:relative;width:50%;height:100%;overflow:hidden;
+  transition:transform .55s cubic-bezier(.77,0,.18,1);
+  background:linear-gradient(180deg,#1e2d42 0%,#253345 25%,#1a2638 55%,#1e2d42 100%)}
+.door-left {transform:translateX(-100%);border-right:1px solid var(--steel-mid)}
+.door-right{transform:translateX(100%); border-left: 1px solid var(--steel-mid)}
+.door-lines{position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 47px,rgba(200,208,218,0.07) 47px,rgba(200,208,218,0.07) 49px),
+    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(200,208,218,0.05) 79px,rgba(200,208,218,0.05) 81px)}
+.door-lines::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(200,208,218,.06) 0%,transparent 18%,transparent 82%,rgba(200,208,218,.06) 100%)}
+.door-lines::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(200,208,218,.04) 0%,transparent 35%,rgba(200,208,218,.03) 65%,transparent 100%)}
+.door-x{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-hud);font-size:min(40vw,45vh);font-weight:900;
+  color:rgba(200,208,218,0.06);user-select:none;line-height:1}
+.door-left  .door-x{transform:translateX(30%)}
+.door-right .door-x{transform:translateX(-30%)}
+.door-seam{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);
+  width:3px;opacity:0;transition:opacity .1s;
+  background:linear-gradient(180deg,transparent 0%,var(--xm-yellow) 30%,var(--xm-red-lit) 50%,var(--xm-yellow) 70%,transparent 100%);
+  box-shadow:0 0 10px rgba(245,196,0,.6),0 0 22px rgba(204,31,14,.4)}
+.door-left::after,.door-right::after{content:"";position:absolute;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,transparent,var(--xm-yellow) 35%,var(--xm-red-lit) 50%,var(--xm-yellow) 65%,transparent);
+  opacity:0;transition:opacity .2s}
+.door-left::after{right:0}.door-right::after{left:0}
+.door-overlay.closing .door-left,
+.door-overlay.closed  .door-left {transform:translateX(0)}
+.door-overlay.closing .door-right,
+.door-overlay.closed  .door-right{transform:translateX(0)}
+.door-overlay.closing .door-seam,
+.door-overlay.closed  .door-seam{opacity:1}
+.door-overlay.closing .door-left::after,
+.door-overlay.closing .door-right::after,
+.door-overlay.closed  .door-left::after,
+.door-overlay.closed  .door-right::after{opacity:.7}
+.door-overlay.opening .door-left {transform:translateX(-100%);transition:transform .5s cubic-bezier(.77,0,.18,1) .05s}
+.door-overlay.opening .door-right{transform:translateX(100%); transition:transform .5s cubic-bezier(.77,0,.18,1) .05s}
+.door-overlay.opening .door-seam{opacity:0;transition:opacity .15s .3s}
+
+/* CARD */
+.card{background:var(--graphite-card);border:1px solid rgba(245,196,0,0.18);border-radius:6px;
+  padding:22px 28px 26px;text-align:center;
+  box-shadow:0 0 0 1px rgba(204,31,14,.08),inset 0 0 40px rgba(0,0,0,.5),0 0 30px rgba(204,31,14,.06);
+  backdrop-filter:blur(4px);
+  max-height:calc(100vh - 170px);overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--xm-yellow-dim) transparent}
+.card::-webkit-scrollbar{width:4px}
+.card::-webkit-scrollbar-track{background:transparent}
+.card::-webkit-scrollbar-thumb{background:var(--xm-yellow-dim);border-radius:2px}
+
+/* NOMBRE */
+.name{font-family:var(--font-hud);font-size:clamp(.95rem,3vw,1.35rem);font-weight:900;
+  color:var(--steel-edge);letter-spacing:.1em;margin-bottom:12px;
+  text-shadow:0 1px 2px rgba(0,0,0,.8)}
+.codename{font-size:.78em;color:var(--amber-lit);text-shadow:0 0 8px var(--amber-glow)}
+
+/* AVATAR */
+.avatar-wrap{position:relative;display:inline-block;margin:8px auto 18px}
+.avatar{width:110px;height:110px;border-radius:6px;border:1px solid var(--steel-mid);
+  filter:grayscale(30%) contrast(1.1) brightness(.92);
+  box-shadow:0 0 0 3px rgba(138,155,176,.15),0 4px 16px rgba(0,0,0,.6);display:block}
+.avatar-ring{position:absolute;inset:-5px;border-radius:9px;
+  border:1px solid rgba(200,208,218,.2);animation:ringPulse 3s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,208,218,.2)}50%{box-shadow:0 0 0 5px rgba(200,208,218,0)}}
+.xbadge{position:absolute;bottom:-8px;right:-8px;width:26px;height:26px;border-radius:50%;
+  background:radial-gradient(circle,var(--red-edge),var(--red-badge));
+  border:1px solid #d04020;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-hud);font-size:.7rem;font-weight:900;color:#f0ccc0;
+  box-shadow:0 0 8px rgba(180,60,20,.5)}
+
+/* SECTION TITLE */
+.section-title{font-family:var(--font-hud);font-size:.9rem;letter-spacing:.2em;
+  color:var(--xm-yellow);margin-bottom:12px;
+  text-shadow:0 0 10px var(--xm-yellow-glow)}
+
+/* BIO */
+.bio{font-size:.84rem;line-height:1.65;color:var(--steel-light);max-width:340px;margin:0 auto}
+.bio em{color:var(--amber-lit);font-style:normal}
+
+/* SKILL BARS */
+.skill-list{list-style:none;text-align:left;margin-top:8px}
+.skill-list li{margin-bottom:13px}
+.skill-bar{display:block;font-size:.76rem;letter-spacing:.08em;color:var(--steel-light);margin-bottom:4px;padding-left:2px}
+.skill-progress{display:block;height:5px;border-radius:2px;background:rgba(200,208,218,.1);margin-top:4px;overflow:hidden}
+.skill-progress-fill{height:100%;border-radius:2px;width:0;
+  background:linear-gradient(90deg,var(--xm-red) 0%,var(--xm-yellow-dim) 55%,var(--xm-yellow) 100%);
+  transition:width 1.1s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 0 8px rgba(245,196,0,.35)}
+
+/* EXPERIENCIA / BLOQUES */
+.exp-block{text-align:left;margin-bottom:15px}
+.exp-block h3{font-family:var(--font-hud);font-size:.7rem;color:var(--amber-lit);letter-spacing:.1em;margin-bottom:4px}
+.exp-block p{font-size:.79rem;color:var(--steel-light);line-height:1.5}
+.divider{border:none;border-top:1px solid var(--border-steel);margin:14px 0}
+.lang-title{font-family:var(--font-hud);font-size:.7rem;letter-spacing:.15em;color:var(--steel-edge);
+  margin-bottom:8px;text-shadow:0 0 6px rgba(200,208,218,.2)}
+.lang-list{list-style:none;text-align:left;font-size:.81rem}
+.lang-list li{margin-bottom:5px}
+
+/* CONTACTO */
+.contact-list{list-style:none;text-align:left;margin-top:8px}
+.contact-list li{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;padding:10px 12px;
+  border:1px solid var(--border-steel);border-radius:4px;
+  background:rgba(200,208,218,.03)}
+.contact-icon{font-size:1.1rem;line-height:1.4;flex-shrink:0;margin-top:1px}
+.contact-info{display:flex;flex-direction:column;gap:2px}
+.contact-label{font-family:var(--font-hud);font-size:.58rem;letter-spacing:.2em;color:var(--steel-mid)}
+.contact-value{font-size:.83rem;color:var(--steel-edge);word-break:break-all}
+.contact-value a{color:var(--amber-lit);text-decoration:none}
+.contact-value a:hover{text-decoration:underline}
+
+/* PROYECTOS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.7rem;text-align:left;margin-top:8px}
+.proj-card{border:1px solid var(--border-steel);border-radius:5px;padding:12px 14px;
+  background:rgba(200,208,218,.02);transition:border-color .2s}
+.proj-card:hover{border-color:var(--xm-yellow)}
+.proj-card__name{font-family:var(--font-hud);font-size:.65rem;color:var(--xm-yellow);
+  letter-spacing:.08em;margin-bottom:5px}
+.proj-card__tech{font-size:.7rem;color:var(--xm-red-lit);margin-bottom:4px}
+.proj-card__desc{font-size:.76rem;color:var(--steel-light);line-height:1.5}
+.proj-card__link{display:inline-block;margin-top:6px;font-size:.68rem;color:var(--amber-lit)}
+
+/* FORMACIÓN COMPLEMENTARIA */
+.training-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.7rem;text-align:left;margin-top:8px}
+.training-card{border:1px solid var(--border-steel);border-radius:5px;padding:10px 12px;
+  background:rgba(200,208,218,.02)}
+.training-card__tipo{font-family:var(--font-hud);font-size:.55rem;letter-spacing:.15em;
+  color:var(--xm-red-lit);margin-bottom:3px;text-transform:uppercase}
+.training-card__nombre{font-size:.78rem;color:var(--steel-edge);font-weight:600;margin-bottom:2px}
+.training-card__entidad{font-size:.7rem;color:var(--steel-mid)}
+
+/* LOGROS */
+.achievement-list{list-style:none;text-align:left;margin-top:8px}
+.achievement-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;
+  padding:10px 12px;border:1px solid var(--border-steel);border-radius:4px;
+  background:rgba(200,208,218,.02)}
+.achievement-icon{font-size:1.3rem;flex-shrink:0;line-height:1.2}
+.achievement-content__title{font-family:var(--font-hud);font-size:.65rem;color:var(--xm-yellow);
+  letter-spacing:.08em;margin-bottom:3px}
+.achievement-content__meta{font-size:.7rem;color:var(--xm-red-lit);margin-bottom:3px}
+.achievement-content__desc{font-size:.76rem;color:var(--steel-light);line-height:1.5}
+
+/* VOLUNTARIADO */
+/* reutiliza .exp-block */
+
+/* INTERESES */
+.interest-cloud{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:10px}
+.interest-tag{background:rgba(245,196,0,.07);border:1px solid rgba(245,196,0,.25);
+  border-radius:999px;padding:.25rem .75rem;font-size:.76rem;color:var(--xm-yellow);
+  letter-spacing:.06em;transition:background .2s}
+.interest-tag:hover{background:rgba(245,196,0,.15)}
+
+/* NAV — scrollable horizontal */
+nav.menu{position:fixed;bottom:0;left:0;right:0;height:110px;
+  display:flex;align-items:center;
+  gap:7px;padding:10px 12px;
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  background:linear-gradient(0deg,rgba(10,12,18,.98) 0%,transparent 100%);z-index:100}
+nav.menu::-webkit-scrollbar{display:none}
+.nav-btn{position:relative;flex-shrink:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:2px;width:clamp(62px,16vw,110px);height:70px;
+  scroll-snap-align:start;
+  background:linear-gradient(160deg,#1a2638,#111a28);
+  border:1px solid var(--border-steel);border-radius:5px;
+  color:var(--steel-mid);font-family:var(--font-hud);font-size:.45rem;
+  letter-spacing:.1em;cursor:pointer;transition:all .2s ease;
+  box-shadow:0 0 8px rgba(200,208,218,.06);overflow:hidden}
+.nav-btn::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(200,208,218,.06),transparent 60%);opacity:0;transition:opacity .2s}
+.nav-btn:hover::before,.nav-btn.active-nav::before{opacity:1}
+.nav-btn:hover,.nav-btn.active-nav{border-color:var(--xm-yellow);color:var(--xm-yellow);
+  box-shadow:0 0 16px rgba(245,196,0,.25),inset 0 0 8px rgba(245,196,0,.06);transform:translateY(-2px)}
+.nav-icon{font-size:.9rem;line-height:1}
+.nav-label{text-align:center;line-height:1.4}
+.xbadge-nav{position:absolute;top:4px;right:4px;width:15px;height:15px;border-radius:50%;
+  background:radial-gradient(circle,var(--xm-red-lit),#7a1208);border:1px solid var(--xm-red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-hud);font-size:.48rem;font-weight:900;color:#ffd8cc}
+
+/* KEYBOARD HINT */
+.keyboard-hint{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:.55rem;
+  color:rgba(245,196,0,.35);letter-spacing:.12em;white-space:nowrap;z-index:101;pointer-events:none}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="background-layer">
+    <div class="grid-lines"></div>
+    <div class="x-watermark">X</div>
+  </div>
+
+  <div class="hud-layer">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+    <div class="hud-title" id="hudTitle">HOME / ABOUT ME</div>
+    <div class="hud-badge hud-badge-tl"></div><div class="hud-badge hud-badge-tr"></div>
+    <div class="hud-badge hud-badge-bl"></div><div class="hud-badge hud-badge-br"></div>
+    <div class="hud-counter" id="hudCounter">01 / 10</div>
+  </div>
+
+  <main class="content-layer">
+
+    <!-- 01 · ABOUT -->
+    <section class="screen active" id="about">
+      <div class="card">
+        <h1 class="name">ROBERT BETANCOURT<br/><span class="codename">// DESARROLLADOR IT //</span></h1>
+        <div class="avatar-wrap">
+          <div class="avatar-ring"></div>
+          <img class="avatar" src="https://i.pravatar.cc/150?img=11" alt="Foto de perfil"/>
+          <div class="xbadge">✕</div>
+        </div>
+        <h2 class="section-title">SOBRE MÍ</h2>
+        <p class="bio">Mutante tecnológico especializado en desarrollo web, backend y estilización de interfaces.
+          Adaptación rápida ante cualquier desafío crítico del sistema.
+          <br/><br/><em>"Para el futuro de la humanidad."</em></p>
+      </div>
+    </section>
+
+    <!-- 02 · SOFT SKILLS -->
+    <section class="screen" id="softskills">
+      <div class="card">
+        <h2 class="section-title">SOFT SKILLS</h2>
+        <ul class="skill-list">
+          <li><span class="skill-bar" data-pct="90">Trabajo en equipo</span></li>
+          <li><span class="skill-bar" data-pct="85">Comunicación efectiva</span></li>
+          <li><span class="skill-bar" data-pct="80">Liderazgo técnico</span></li>
+          <li><span class="skill-bar" data-pct="95">Adaptabilidad</span></li>
+          <li><span class="skill-bar" data-pct="88">Resolución de problemas</span></li>
+          <li><span class="skill-bar" data-pct="82">Gestión del tiempo</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 · EXPERIENCIA + EDUCACIÓN + IDIOMAS -->
+    <section class="screen" id="experience">
+      <div class="card">
+        <h2 class="section-title">EXPERIENCIA</h2>
+        <div class="exp-block">
+          <h3>Empresa X — Desarrollador IT</h3>
+          <p>2022 – Presente · Desarrollo web, backend y sistemas de soporte técnico.</p>
+        </div>
+        <div class="exp-block">
+          <h3>Agencia Y — Becario Web</h3>
+          <p>2020 – 2022 · Maquetación, CSS avanzado y optimización de interfaces.</p>
+        </div>
+
+        <hr class="divider"/>
+        <h3 class="lang-title">EDUCACIÓN</h3>
+        <div class="exp-block" style="margin-bottom:0">
+          <h3>Certificado de Profesionalidad · Nivel 3</h3>
+          <p>Informática y Comunicaciones<br/>Especialidad: Programación Orientada a Objetos</p>
+        </div>
+
+        <hr class="divider"/>
+        <h3 class="lang-title">IDIOMAS</h3>
+        <ul class="lang-list">
+          <li>🇪🇸 Español — Nativo</li>
+          <li>🇬🇧 Inglés — B2</li>
+          <li>🇩🇪 Alemán — Intermedio-Básico</li>
+          <li>🏴 Catalán — Básico</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 · HARD SKILLS -->
+    <section class="screen" id="hardskills">
+      <div class="card">
+        <h2 class="section-title">HARD SKILLS</h2>
+        <ul class="skill-list">
+          <li><span class="skill-bar" data-pct="92">HTML / CSS</span></li>
+          <li><span class="skill-bar" data-pct="85">JavaScript</span></li>
+          <li><span class="skill-bar" data-pct="78">React</span></li>
+          <li><span class="skill-bar" data-pct="70">Node.js / Backend</span></li>
+          <li><span class="skill-bar" data-pct="65">Git / GitHub</span></li>
+          <li><span class="skill-bar" data-pct="60">Python</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 · PROYECTOS -->
+    <section class="screen" id="projects">
+      <div class="card">
+        <h2 class="section-title">PROYECTOS</h2>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="proj-card__name">CV X-MEN '97</div>
+            <div class="proj-card__tech">🛠 HTML · CSS · JS</div>
+            <div class="proj-card__desc">CV interactivo con estética X-Men '97, HUD animado y transiciones de puerta metálica.</div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-card__name">PROYECTO ALFA</div>
+            <div class="proj-card__tech">🛠 React · Node.js</div>
+            <div class="proj-card__desc">Descripción breve del proyecto. Reemplaza con tu contenido real.</div>
+            <a class="proj-card__link" href="#">🔗 Ver proyecto</a>
+          </div>
+          <div class="proj-card">
+            <div class="proj-card__name">PROYECTO BETA</div>
+            <div class="proj-card__tech">🛠 Python · API</div>
+            <div class="proj-card__desc">Descripción breve del proyecto. Reemplaza con tu contenido real.</div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-card__name">PROYECTO GAMMA</div>
+            <div class="proj-card__tech">🛠 CSS · Animación</div>
+            <div class="proj-card__desc">Descripción breve del proyecto. Reemplaza con tu contenido real.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · FORMACIÓN COMPLEMENTARIA -->
+    <section class="screen" id="training">
+      <div class="card">
+        <h2 class="section-title">FORMACIÓN COMP.</h2>
+        <div class="training-grid">
+          <div class="training-card">
+            <div class="training-card__tipo">Curso</div>
+            <div class="training-card__nombre">Desarrollo Web Full Stack</div>
+            <div class="training-card__entidad">Entidad · 2023</div>
+          </div>
+          <div class="training-card">
+            <div class="training-card__tipo">Certificación</div>
+            <div class="training-card__nombre">Git &amp; GitHub Avanzado</div>
+            <div class="training-card__entidad">Entidad · 2022</div>
+          </div>
+          <div class="training-card">
+            <div class="training-card__tipo">Taller</div>
+            <div class="training-card__nombre">UX / UI Design Fundamentals</div>
+            <div class="training-card__entidad">Entidad · 2022</div>
+          </div>
+          <div class="training-card">
+            <div class="training-card__tipo">MOOC</div>
+            <div class="training-card__nombre">Python para Ciencia de Datos</div>
+            <div class="training-card__entidad">Entidad · 2021</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · LOGROS -->
+    <section class="screen" id="achievements">
+      <div class="card">
+        <h2 class="section-title">LOGROS</h2>
+        <ul class="achievement-list">
+          <li class="achievement-item">
+            <div class="achievement-icon">🏆</div>
+            <div class="achievement-content">
+              <div class="achievement-content__title">Premio · Nombre del reconocimiento</div>
+              <div class="achievement-content__meta">Organización · Año</div>
+              <div class="achievement-content__desc">Descripción breve del logro o reconocimiento obtenido.</div>
+            </div>
+          </li>
+          <li class="achievement-item">
+            <div class="achievement-icon">🎓</div>
+            <div class="achievement-content">
+              <div class="achievement-content__title">Mérito · Certificado de Profesionalidad N3</div>
+              <div class="achievement-content__meta">Informática y Comunicaciones · 2022</div>
+              <div class="achievement-content__desc">Nivel 3 con especialidad en Programación Orientada a Objetos.</div>
+            </div>
+          </li>
+          <li class="achievement-item">
+            <div class="achievement-icon">🎯</div>
+            <div class="achievement-content">
+              <div class="achievement-content__title">Evento · Nombre del evento</div>
+              <div class="achievement-content__meta">Organización · Año</div>
+              <div class="achievement-content__desc">Descripción breve de la participación o reconocimiento.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 08 · VOLUNTARIADO -->
+    <section class="screen" id="volunteering">
+      <div class="card">
+        <h2 class="section-title">VOLUNTARIADO</h2>
+        <div class="exp-block">
+          <h3>Organización Alpha — Función / Rol</h3>
+          <p>Descripción del impacto generado y tareas realizadas como voluntario.</p>
+        </div>
+        <div class="exp-block">
+          <h3>Organización Beta — Función / Rol</h3>
+          <p>Descripción del impacto generado y tareas realizadas como voluntario.</p>
+        </div>
+        <div class="exp-block">
+          <h3>Organización Gamma — Función / Rol</h3>
+          <p>Descripción del impacto generado y tareas realizadas como voluntario.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 · INTERESES -->
+    <section class="screen" id="interests">
+      <div class="card">
+        <h2 class="section-title">INTERESES</h2>
+        <div class="interest-cloud">
+          <span class="interest-tag">Desarrollo Web</span>
+          <span class="interest-tag">Diseño UI/UX</span>
+          <span class="interest-tag">X-Men '97</span>
+          <span class="interest-tag">Retro Sci-Fi</span>
+          <span class="interest-tag">Open Source</span>
+          <span class="interest-tag">Animación CSS</span>
+          <span class="interest-tag">DevOps</span>
+          <span class="interest-tag">Inteligencia Artificial</span>
+          <span class="interest-tag">Ciberseguridad</span>
+          <span class="interest-tag">Idiomas</span>
+          <span class="interest-tag">Cómic</span>
+          <span class="interest-tag">Fotografía</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · CONTACTO -->
+    <section class="screen" id="contact">
+      <div class="card">
+        <h2 class="section-title">CONTACTO</h2>
+        <ul class="contact-list">
+          <li>
+            <span class="contact-icon">📞</span>
+            <div class="contact-info">
+              <span class="contact-label">TELÉFONO</span>
+              <span class="contact-value"><a href="tel:+34688408433">688 408 433</a></span>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">✉</span>
+            <div class="contact-info">
+              <span class="contact-label">EMAIL</span>
+              <span class="contact-value"><a href="mailto:robert.globov@gmail.com">robert.globov@gmail.com</a></span>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">📍</span>
+            <div class="contact-info">
+              <span class="contact-label">UBICACIÓN</span>
+              <span class="contact-value">Barcelona, España</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="scan-line"></div>
+
+  <div class="door-overlay" id="doorOverlay" aria-hidden="true">
+    <div class="door door-left"><div class="door-lines"></div><div class="door-x">X</div></div>
+    <div class="door door-right"><div class="door-lines"></div><div class="door-x">X</div></div>
+    <div class="door-seam"></div>
+  </div>
+</div>
+
+<nav class="menu" id="navMenu">
+  <button class="nav-btn active-nav" data-screen="about">
+    <span class="nav-icon">⬡</span><span class="nav-label">ABOUT<br/>ME</span>
+    <div class="xbadge-nav">01</div>
+  </button>
+  <button class="nav-btn" data-screen="softskills">
+    <span class="nav-icon">◈</span><span class="nav-label">SOFT<br/>SKILLS</span>
+    <div class="xbadge-nav">02</div>
+  </button>
+  <button class="nav-btn" data-screen="experience">
+    <span class="nav-icon">◉</span><span class="nav-label">EXP.<br/>EDUC.</span>
+    <div class="xbadge-nav">03</div>
+  </button>
+  <button class="nav-btn" data-screen="hardskills">
+    <span class="nav-icon">◈</span><span class="nav-label">HARD<br/>SKILLS</span>
+    <div class="xbadge-nav">04</div>
+  </button>
+  <button class="nav-btn" data-screen="projects">
+    <span class="nav-icon">◧</span><span class="nav-label">PROYEC-<br/>TOS</span>
+    <div class="xbadge-nav">05</div>
+  </button>
+  <button class="nav-btn" data-screen="training">
+    <span class="nav-icon">◫</span><span class="nav-label">FORM.<br/>COMP.</span>
+    <div class="xbadge-nav">06</div>
+  </button>
+  <button class="nav-btn" data-screen="achievements">
+    <span class="nav-icon">◆</span><span class="nav-label">LOGROS<br/>&amp; REC.</span>
+    <div class="xbadge-nav">07</div>
+  </button>
+  <button class="nav-btn" data-screen="volunteering">
+    <span class="nav-icon">◎</span><span class="nav-label">VOLUN-<br/>TARIADO</span>
+    <div class="xbadge-nav">08</div>
+  </button>
+  <button class="nav-btn" data-screen="interests">
+    <span class="nav-icon">◌</span><span class="nav-label">INTERE-<br/>SES</span>
+    <div class="xbadge-nav">09</div>
+  </button>
+  <button class="nav-btn" data-screen="contact">
+    <span class="nav-icon">◈</span><span class="nav-label">CON-<br/>TACTO</span>
+    <div class="xbadge-nav">10</div>
+  </button>
+</nav>
+
+<div class="keyboard-hint">← → Navegar · [C] Contacto · [H] Home · scroll menú para ver todas</div>
+
+<script>
+/* ─── SONIDO ─────────────────────────────── */
+let _audioCtx = null;
+function getAudioCtx() {
+  if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return _audioCtx;
+}
+function playTransitionSound() {
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    const osc1 = ctx.createOscillator(), gain1 = ctx.createGain();
+    osc1.type = "sawtooth";
+    osc1.frequency.setValueAtTime(120, now);
+    osc1.frequency.exponentialRampToValueAtTime(35, now + 0.18);
+    gain1.gain.setValueAtTime(0.45, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+    osc1.connect(gain1); gain1.connect(ctx.destination);
+    osc1.start(now); osc1.stop(now + 0.25);
+    const bufSize = ctx.sampleRate * 0.25;
+    const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
+    const noise = ctx.createBufferSource();
+    noise.buffer = buf;
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass"; filter.frequency.value = 1800; filter.Q.value = 0.8;
+    const gain2 = ctx.createGain();
+    gain2.gain.setValueAtTime(0.18, now);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+    noise.connect(filter); filter.connect(gain2); gain2.connect(ctx.destination);
+    noise.start(now); noise.stop(now + 0.28);
+    const osc2 = ctx.createOscillator(), gain3 = ctx.createGain();
+    osc2.type = "sine";
+    osc2.frequency.setValueAtTime(3200, now);
+    osc2.frequency.exponentialRampToValueAtTime(900, now + 0.08);
+    gain3.gain.setValueAtTime(0.12, now);
+    gain3.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+    osc2.connect(gain3); gain3.connect(ctx.destination);
+    osc2.start(now); osc2.stop(now + 0.12);
+  } catch(e) {}
+}
+
+/* ─── NAVEGACIÓN ─────────────────────────── */
+const order = ["about","softskills","experience","hardskills","projects","training","achievements","volunteering","interests","contact"];
+let currentIndex = 0, isAnimating = false;
+const doorOverlay = document.getElementById("doorOverlay");
+const hudTitle    = document.getElementById("hudTitle");
+const hudCounter  = document.getElementById("hudCounter");
+
+const titles = {
+  about:         "HOME / ABOUT ME",
+  softskills:    "SOFT SKILLS",
+  experience:    "EXPERIENCIA · EDUCACIÓN · IDIOMAS",
+  hardskills:    "HARD SKILLS",
+  projects:      "PROYECTOS DESTACADOS",
+  training:      "FORMACIÓN COMPLEMENTARIA",
+  achievements:  "LOGROS Y RECONOCIMIENTOS",
+  volunteering:  "VOLUNTARIADO",
+  interests:     "INTERESES",
+  contact:       "CONTACTO"
+};
+
+function setActiveScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  const t = document.getElementById(id);
+  if (t) { t.classList.add("active"); animateSkillBars(t); t.querySelector(".card")?.scrollTo(0,0); }
+  document.querySelectorAll(".nav-btn").forEach(b => {
+    const active = b.dataset.screen === id;
+    b.classList.toggle("active-nav", active);
+    if (active) b.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+  });
+  if (hudTitle)   hudTitle.textContent   = titles[id] || id.toUpperCase();
+  const idx = order.indexOf(id);
+  if (hudCounter) hudCounter.textContent = `${String(idx+1).padStart(2,"0")} / ${order.length}`;
+}
+
+function showScreen(id) {
+  if (isAnimating) return;
+  const cur = document.querySelector(".screen.active");
+  if (cur?.id === id) return;
+  isAnimating = true;
+  playTransitionSound();
+  doorOverlay.className = "door-overlay closing";
+  setTimeout(() => {
+    doorOverlay.className = "door-overlay closed";
+    setActiveScreen(id);
+    setTimeout(() => {
+      doorOverlay.className = "door-overlay opening";
+      setTimeout(() => { doorOverlay.className = "door-overlay"; isAnimating = false; }, 600);
+    }, 120);
+  }, 560);
+}
+
+function animateSkillBars(section) {
+  section.querySelectorAll(".skill-bar").forEach(bar => {
+    if (bar.nextElementSibling?.classList.contains("skill-progress")) return;
+    const pct = (bar.dataset.pct || "0") + "%";
+    const w = document.createElement("div"); w.className = "skill-progress";
+    const f = document.createElement("div"); f.className = "skill-progress-fill";
+    w.appendChild(f); bar.insertAdjacentElement("afterend", w);
+    requestAnimationFrame(() => requestAnimationFrame(() => { f.style.width = pct; }));
+  });
+}
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.screen;
+    currentIndex = order.indexOf(id);
+    showScreen(id);
+  });
+});
+
+document.addEventListener("keydown", e => {
+  const map = {
+    ArrowLeft:  () => { currentIndex = (currentIndex - 1 + order.length) % order.length; return order[currentIndex]; },
+    ArrowRight: () => { currentIndex = (currentIndex + 1) % order.length; return order[currentIndex]; },
+    KeyC: () => "contact", c: () => "contact",
+    KeyH: () => "about",   h: () => "about",
+  };
+  const fn = map[e.key] || map[e.code];
+  if (fn) { e.preventDefault(); showScreen(fn()); }
+});
+
+/* Gamepad */
+const gpPressed = {};
+function pollGamepad() {
+  try {
+    const gps = navigator.getGamepads ? navigator.getGamepads() : [];
+    for (const gp of gps) {
+      if (!gp) continue;
+      const leftPressed  = gp.buttons[14]?.pressed;
+      const rightPressed = gp.buttons[15]?.pressed;
+      const startPressed = gp.buttons[9]?.pressed;
+      if (leftPressed && !gpPressed[14]) { currentIndex = (currentIndex - 1 + order.length) % order.length; showScreen(order[currentIndex]); }
+      if (rightPressed && !gpPressed[15]) { currentIndex = (currentIndex + 1) % order.length; showScreen(order[currentIndex]); }
+      if (startPressed && !gpPressed[9]) showScreen("contact");
+      gpPressed[14] = leftPressed; gpPressed[15] = rightPressed; gpPressed[9] = startPressed;
+    }
+  } catch(e) { return; }
+  requestAnimationFrame(pollGamepad);
+}
+try { if ("getGamepads" in navigator) requestAnimationFrame(pollGamepad); } catch(e) {}
+
+setActiveScreen("about");
+</script>
+</body>
+</html>
